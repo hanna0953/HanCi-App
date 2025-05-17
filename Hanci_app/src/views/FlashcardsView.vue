@@ -1,6 +1,7 @@
+<!-- src/views/FlashcardsView.vue -->
 <template>
   <div class="flashcards-view">
-    <h1>Flashcards</h1>
+    <h1>Flashcards: {{ store.currentSetName }}</h1>
     
     <div class="flashcard-container">
       <Flashcard 
@@ -9,7 +10,7 @@
         :show-pinyin="showPinyin" 
         @next-card="nextCard"
       />
-      <p v-else>No cards to study right now</p>
+      <p v-else>No cards in this set</p>
     </div>
     
     <div class="controls">
@@ -22,44 +23,24 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import Flashcard from '@/components/Flashcard.vue'
+import { useStudyStore } from '@/stores/useStudyStore'
 
+const store = useStudyStore()
 const showPinyin = ref(true)
-
-// Mock data - replace with Supabase data later
-const cards = ref([
-  {
-    simplified: '你好',
-    traditional: '你好',
-    pinyin: 'nǐ hǎo',
-    english: 'hello'
-  },
-  {
-    simplified: '谢谢',
-    traditional: '謝謝',
-    pinyin: 'xiè xie',
-    english: 'thank you'
-  },
-  {
-    simplified: '中国',
-    traditional: '中國',
-    pinyin: 'Zhōng guó',
-    english: 'China'
-  }
-])
-
 const currentIndex = ref(0)
-const currentCard = ref(cards.value[0])
+
+const currentCard = computed(() => {
+  return store.currentSet[currentIndex.value]
+})
 
 const nextCard = () => {
-  currentIndex.value = (currentIndex.value + 1) % cards.value.length
-  currentCard.value = cards.value[currentIndex.value]
+  currentIndex.value = (currentIndex.value + 1) % store.currentSet.length
 }
 
 const resetCards = () => {
   currentIndex.value = 0
-  currentCard.value = cards.value[0]
 }
 </script>
 

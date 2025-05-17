@@ -5,6 +5,7 @@
       <router-link to="/vocabulary">Vocabulary</router-link>
       <router-link to="/flashcards">Flashcards</router-link>
       <router-link to="/practice">Practice</router-link>
+      <router-link to="/manage-flashcards">Manage Flashcards</router-link>
     </div>
     <ThemeToggle />
   </nav>

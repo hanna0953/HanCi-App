@@ -9,6 +9,7 @@
       </div>
       <div class="word-details">
         <span class="pinyin">{{ word.pinyin }}</span>
+        <span class="divider"></span>
         <span class="english">{{ word.english }}</span>
       </div>
       <button class="study-button" @click="$emit('study-word', word)">

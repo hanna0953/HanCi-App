@@ -3,6 +3,7 @@ import DashboardView from '@/views/DashboardView.vue'
 import VocabularyView from '@/views/VocabularyView.vue'
 import FlashcardsView from '@/views/FlashcardsView.vue'
 import PracticeView from '@/views/PracticeView.vue'
+import ManageFlashcardsView from '@/views/ManageFlashcardsView.vue' // Add this import
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,12 +21,17 @@ const router = createRouter({
     {
       path: '/flashcards',
       name: 'flashcards',
-      component: FlashcardsView.vue
+      component: FlashcardsView
     },
     {
       path: '/practice',
       name: 'practice',
       component: PracticeView
+    },
+    {
+      path: '/manage-flashcards',
+      name: 'manage-flashcards',
+      component: ManageFlashcardsView
     }
   ]
 })
