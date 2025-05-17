@@ -1,6 +1,7 @@
 <template>
   <nav>
     <div class="nav-left">
+    <div class="app-name">HAN词</div>
       <router-link to="/">Dashboard</router-link>
       <router-link to="/vocabulary">Vocabulary</router-link>
       <router-link to="/flashcards">Flashcards</router-link>
@@ -16,6 +17,15 @@ import ThemeToggle from '@/components/ThemeToggle.vue'
 </script>
 
 <style scoped>
+
+.app-name {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--primary);
+  margin-right: 2rem;
+  letter-spacing: -0.5px;
+}
+
 nav {
   display: flex;
   justify-content: space-between;
