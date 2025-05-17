@@ -12,7 +12,7 @@ import FlashcardManager from '@/components/FlashcardManager.vue'
 <style scoped>
 .manage-view {
   padding: 2rem;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 </style>

@@ -21,6 +21,8 @@ import NavBar from '@/components/NavBar.vue'
   --bg-secondary: #f8fafc;
   --bg-surface: #f1f5f9;
   --border: #e2e8f0;
+  --flashcard-bg: #ffffff;
+  --flashcard-text: #ffffff;
 
   /* Dark theme */
   &[data-theme="dark"] {
@@ -35,23 +37,25 @@ import NavBar from '@/components/NavBar.vue'
     --bg-secondary: #1e293b;
     --bg-surface: #334155;
     --border: #475569;
+    --flashcard-bg: #1e293b;
+    --flashcard-text: #0f172a;
   }
 }
 
 body {
-  font-family: 'Noto Sans SC', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Noto Sans SC', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #app {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-  min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    min-height: 100vh;
 }
 
 /* Component-specific styles */
@@ -59,23 +63,23 @@ body {
 .word-card,
 .practice-card,
 .flashcard-front {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
 }
 
 .flashcard-back {
-  background: var(--primary);
+    background: var(--primary);
 }
 
 .nav a.router-link-exact-active {
-  background: var(--primary);
+    background: var(--primary);
 }
 
 .action-button {
-  background: var(--primary);
+    background: var(--primary);
 }
 
 .study-button {
-  background: var(--primary-light);
+    background: var(--primary-light);
 }
 </style>

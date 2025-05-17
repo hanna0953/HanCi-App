@@ -41,13 +41,12 @@ defineEmits(['study-word'])
   display: flex;
   align-items: center;
   padding: 1rem;
-  background: white;
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
 }
 
 .word-characters {
-  color: var(--text-tertiary);
+  color: var(--text-primary);
   flex: 0 0 120px;
   font-size: 1.2rem;
 }
@@ -68,7 +67,7 @@ defineEmits(['study-word'])
 }
 
 .english {
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 

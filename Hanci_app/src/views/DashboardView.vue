@@ -33,54 +33,57 @@
 
 <style scoped>
 .dashboard {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .stats {
-  display: flex;
-  gap: 1rem;
+    display: flex;
+    gap: 1rem;
 }
 
 .stat-card {
-  flex: 1;
-  background: white;
-  padding: 1.5rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    flex: 1;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
 }
 
 .stat-card h3 {
-  margin: 0 0 0.5rem 0;
-  color: var(--text-secondary);
-  font-size: 1rem;
+    margin: 0 0 0.5rem 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
 }
 
 .stat-card p {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--text-tertiary);
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-primary);
 }
 
 .quick-actions {
-  display: flex;
-  gap: 1rem;
+    display: flex;
+    gap: 1rem;
 }
 
 .action-button {
-  flex: 1;
-  background: var(--primary);
-  color: white;
-  padding: 1rem;
-  text-align: center;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  font-weight: bold;
+    flex: 1;
+    background: var(--primary);
+    border: 1px solid var(--primary);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 .action-button:hover {
-  background: var(--primary-light);
+    background: var(--primary-light);
+    border-color: var(--primary-light);
 }
 </style>

@@ -55,7 +55,7 @@ nav a:hover {
 }
 
 nav a.router-link-exact-active {
-  color: var(--text-primary);
+  color: white;
   background: var(--primary);
 }
 </style>

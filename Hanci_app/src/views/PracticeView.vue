@@ -39,7 +39,8 @@
 
 .practice-card {
   padding: 2rem;
-  background: white;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
   text-decoration: none;
@@ -59,6 +60,6 @@
 
 .practice-card p {
   margin: 0;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
 }
 </style>
