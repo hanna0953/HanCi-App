@@ -1,6 +1,5 @@
 <template>
   <div class="manage-view">
-    <h1>Manage Flashcard Sets</h1>
     <FlashcardManager />
   </div>
 </template>
