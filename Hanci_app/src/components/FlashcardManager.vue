@@ -14,7 +14,7 @@
         <div class="sets-section">
         <h2 class="section-title">HSK Official Sets</h2>
             <div class="cards-grid">
-                <div class="set-card hsk-set" v-for="(set, name) in hskSets" :key="name">
+                <div class="set-card hsk-set" v-for="(set, name) in hskSets" :key="name" @click="viewSet(name)">
                     <div class="set-header">
                         <h3>{{ name }}</h3>
                         <div class="set-meta">
@@ -38,7 +38,7 @@
         <div class="sets-section">
             <h2 class="section-title">Your Custom Sets</h2>
             <div class="cards-grid">
-                <div class="set-card" v-for="(set, name) in customSets" :key="name">
+                <div class="set-card" v-for="(set, name) in customSets" :key="name" @click="viewSet(name)">
                     <div class="set-header">
                         <h3>{{ name }}</h3>
                         <div class="set-actions">
@@ -105,6 +105,33 @@
         <button class="fab" @click="activeTab = 'quick-add'">
         ＋
         </button>
+
+        <!-- Vocabulary Viewer Modal -->
+        <div v-if="viewingSet" class="modal-overlay" @click.self="viewingSet = null">
+            <div class="modal-content vocabulary-modal">
+                <div class="modal-header">
+                    <h2>{{ viewingSet }}</h2>
+                    <p class="set-meta">
+                        {{ store.flashcardSets[viewingSet].length }} cards in this set
+                    </p>
+                    <button class="close-btn" @click="viewingSet = null">×</button>
+                </div>
+                <div class="vocabulary-list">
+                    <div class="vocabulary-header">
+                        <span>Simplified</span>
+                        <span>Traditional</span>
+                        <span>Pinyin</span>
+                        <span>English</span>
+                    </div>
+                    <div class="vocabulary-item" v-for="(card, index) in store.flashcardSets[viewingSet]" :key="index">
+                        <span>{{ card.simplified }}</span>
+                        <span>{{ card.traditional }}</span>
+                        <span>{{ card.pinyin }}</span>
+                        <span>{{ card.english }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -118,11 +145,11 @@ const showSetCreator = ref(false)
 const newSetName = ref('')
 const newCard = ref({ simplified: '', traditional: '', pinyin: '', english: '' })
 const currentSetName = ref(store.currentSetName)
+const viewingSet = ref(null);
 
-const tabs = [
-{ id: 'cards', label: 'My Sets' },
-{ id: 'quick-add', label: 'Quick Add' }
-]
+const viewSet = (setName) => {
+    viewingSet.value = setName;
+};
 
 const hskSets = computed(() => 
 Object.entries(store.flashcardSets)
@@ -135,10 +162,6 @@ Object.entries(store.flashcardSets)
     .filter(([name]) => !name.startsWith('HSK'))
     .reduce((obj, [key, val]) => ({ ...obj, [key]: val }), {})
 )
-
-const handleSetChange = () => {
-store.currentSetName = currentSetName.value
-}
 
 const addCard = () => {
 if (newCard.value.simplified.trim()) {
@@ -297,7 +320,7 @@ transition: transform 0.2s, opacity 0.2s;
 }
 
 .primary-btn:hover {
-transform: translateY(-2px);
+transform: translateY(-1px);
 opacity: 0.9;
 }
 
@@ -335,6 +358,7 @@ padding: 1.5rem;
 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 transition: transform 0.2s;
 border: 1px solid var(--border);
+cursor: pointer;
 }
 
 .set-card:hover {
@@ -498,7 +522,16 @@ justify-content: flex-end;
 .secondary-btn {
 background: var(--bg-secondary);
 color: var(--text-primary);
+padding: 0.75rem 1rem;
 border: 1px solid var(--border);
+border-radius: 0.5rem;
+cursor: pointer;
+transition: transform 0.2s, opacity 0.2s;
+}
+
+.secondary-btn:hover {
+transform: translateY(-1px);
+opacity: 0.9;
 }
 
 .empty-state {
@@ -506,6 +539,66 @@ text-align: center;
 padding: 2rem;
 color: var(--text-secondary);
 grid-column: 1 / -1;
+}
+
+.vocabulary-modal {
+    max-width: 800px;
+    padding: 2rem;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.close-btn:hover {
+    color: var(--text-primary);
+}
+
+.vocabulary-list {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.vocabulary-header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 0.5rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.vocabulary-item {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--bg-surface);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border);
+}
+
+.vocabulary-item span {
+    word-break: break-word;
 }
 
 @media (max-width: 768px) {
@@ -525,5 +618,33 @@ grid-column: 1 / -1;
     bottom: 1rem;
     right: 1rem;
 }
+.vocabulary-header,
+.vocabulary-item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
 }
+
+.vocabulary-header {
+    display: none;
+}
+
+.vocabulary-item span {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.vocabulary-item span::before {
+    content: attr(data-label);
+    font-weight: 500;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+.vocabulary-item span:nth-child(1)::before { content: "Simplified: "; }
+.vocabulary-item span:nth-child(2)::before { content: "Traditional: "; }
+.vocabulary-item span:nth-child(3)::before { content: "Pinyin: "; }
+.vocabulary-item span:nth-child(4)::before { content: "English: "; }
+}
+
 </style>
