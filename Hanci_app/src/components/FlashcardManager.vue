@@ -124,26 +124,6 @@ const tabs = [
 { id: 'quick-add', label: 'Quick Add' }
 ]
 
-const initializeStore = () => {
-if (!localStorage.getItem('flashcardSets')) {
-    store.flashcardSets = {
-    ...store.flashcardSets,
-    'Food Vocabulary': [
-        { simplified: '汉堡', traditional: '漢堡', pinyin: 'hàn bǎo', english: 'hamburger' },
-        { simplified: '饺子', traditional: '餃子', pinyin: 'jiǎo zi', english: 'dumplings' },
-        { simplified: '米饭', traditional: '米飯', pinyin: 'mǐ fàn', english: 'rice' }
-    ],
-    'Travel Phrases': [
-        { simplified: '酒店', traditional: '酒店', pinyin: 'jiǔ diàn', english: 'hotel' },
-        { simplified: '机场', traditional: '機場', pinyin: 'jī chǎng', english: 'airport' },
-        { simplified: '地铁', traditional: '地鐵', pinyin: 'dì tiě', english: 'subway' }
-    ]
-    }
-    store.saveToLocalStorage()
-}
-}
-initializeStore()
-
 const hskSets = computed(() => 
 Object.entries(store.flashcardSets)
     .filter(([name]) => name.startsWith('HSK'))
@@ -210,8 +190,6 @@ newCard.value.english = e.target.value
     .replace(/\s+/g, ' ')
     .trim()
 }
-
-
 </script>
 
 <style scoped>
