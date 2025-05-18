@@ -3,129 +3,102 @@
         <!-- Header Section -->
         <div class="header">
         <h1>Manage Your Study Sets</h1>
-        <div class="header-controls">
-            <button class="primary-btn" @click="showSetCreator = true">
-            <span>+</span> Create New Set
-            </button>
-        </div>
+            <div class="header-controls">
+                    <button class="primary-btn" @click="showSetCreator = true">
+                    <span>+</span> Create New Set
+                    </button>
+            </div>
         </div>
 
         <!-- HSK Sets Section -->
         <div class="sets-section">
         <h2 class="section-title">HSK Official Sets</h2>
-        <div class="cards-grid">
-            <div class="set-card hsk-set" v-for="(set, name) in hskSets" :key="name">
-            <div class="set-header">
-                <h3>{{ name }}</h3>
-                <div class="set-meta">
-                <span class="card-count">{{ set.length }} cards</span>
-                <span class="locked-badge">🔒 Read Only</span>
+            <div class="cards-grid">
+                <div class="set-card hsk-set" v-for="(set, name) in hskSets" :key="name">
+                    <div class="set-header">
+                        <h3>{{ name }}</h3>
+                        <div class="set-meta">
+                        <span class="card-count">{{ set.length }} cards</span>
+                        <span class="locked-badge">🔒 Read Only</span>
+                        </div>
+                    </div>
+                    <div class="set-content">
+                        <div class="card-preview">
+                            <div v-for="(card, idx) in set.slice(0,3)" :key="idx" class="preview-card">
+                                <span>{{ card.simplified }}</span>
+                                <small>{{ card.pinyin }}</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="set-content">
-                <div class="card-preview">
-                <div v-for="(card, idx) in set.slice(0,3)" :key="idx" class="preview-card">
-                    <span>{{ card.simplified }}</span>
-                    <small>{{ card.pinyin }}</small>
-                </div>
-                </div>
-            </div>
-            </div>
-        </div>
         </div>
 
         <!-- User Sets Section -->
         <div class="sets-section">
-        <h2 class="section-title">Your Custom Sets</h2>
-        <div class="cards-grid">
-            <div class="set-card" v-for="(set, name) in customSets" :key="name">
-            <div class="set-header">
-                <h3>{{ name }}</h3>
-                <div class="set-actions">
-                <button class="icon-btn" @click="editSet(name)" title="Edit">
-                    ✏️
-                </button>
-                <button class="icon-btn danger" @click="confirmDelete(name)" title="Delete">
-                    🗑️
-                </button>
+            <h2 class="section-title">Your Custom Sets</h2>
+            <div class="cards-grid">
+                <div class="set-card" v-for="(set, name) in customSets" :key="name">
+                    <div class="set-header">
+                        <h3>{{ name }}</h3>
+                        <div class="set-actions">
+                        <button class="icon-btn" @click="editSet(name)" title="Edit">
+                            ✏️
+                        </button>
+                        <button class="icon-btn danger" @click="confirmDelete(name)" title="Delete">
+                            🗑️
+                        </button>
+                        </div>
+                    </div>
+                    <div class="set-content">
+                        <div class="card-preview">
+                        <div v-for="(card, idx) in set.slice(0,3)" :key="idx" class="preview-card">
+                            <span>{{ card.simplified }}</span>
+                            <small>{{ card.pinyin }}</small>
+                        </div>
+                        </div>
+                        <p class="card-count">{{ set.length }} cards</p>
+                    </div>
                 </div>
             </div>
-            <div class="set-content">
-                <div class="card-preview">
-                <div v-for="(card, idx) in set.slice(0,3)" :key="idx" class="preview-card">
-                    <span>{{ card.simplified }}</span>
-                    <small>{{ card.pinyin }}</small>
-                </div>
-                </div>
-                <p class="card-count">{{ set.length }} cards</p>
-            </div>
-            </div>
-            
-            <!-- Example User Sets -->
-            <div class="set-card example-set" v-if="Object.keys(customSets).length === 0">
-            <div class="set-header">
-                <h3>Food Vocabulary</h3>
-                <div class="set-actions">
-                <span class="example-badge">Example</span>
-                </div>
-            </div>
-            <div class="set-content">
-                <div class="card-preview">
-                <div class="preview-card">
-                    <span>汉堡</span>
-                    <small>hàn bǎo</small>
-                </div>
-                <div class="preview-card">
-                    <span>饺子</span>
-                    <small>jiǎo zi</small>
-                </div>
-                <div class="preview-card">
-                    <span>米饭</span>
-                    <small>mǐ fàn</small>
-                </div>
-                </div>
-                <p class="card-count">15 cards</p>
-            </div>
-            </div>
-        </div>
         </div>
 
         <!-- Quick Add Card Panel -->
         <div v-if="activeTab === 'quick-add'" class="quick-add-panel">
-        <div class="input-group">
-            <div class="input-row">
-            <input v-model="newCard.simplified" placeholder="Simplified" @input="formatField('simplified')">
-            <input v-model="newCard.traditional" placeholder="Traditional" @input="formatField('traditional')">
+            <div class="input-group">
+                <div class="input-row">
+                <input v-model="newCard.simplified" placeholder="Simplified" @input="formatField('simplified')">
+                <input v-model="newCard.traditional" placeholder="Traditional" @input="formatField('traditional')">
+                </div>
+                <div class="input-row">
+                <input v-model="newCard.pinyin" placeholder="Pinyin" @input="formatPinyin">
+                <input v-model="newCard.english" placeholder="English" @input="formatEnglish">
+                </div>
             </div>
-            <div class="input-row">
-            <input v-model="newCard.pinyin" placeholder="Pinyin" @input="formatPinyin">
-            <input v-model="newCard.english" placeholder="English" @input="formatEnglish">
-            </div>
-        </div>
-        <button class="primary-btn full-width" @click="addCard">
-            Add Card to Current Set
-        </button>
+            <button class="primary-btn full-width" @click="addCard">
+                Add Card to Current Set
+            </button>
         </div>
 
         <!-- Set Creator Modal -->
         <div v-if="showSetCreator" class="modal-overlay">
-        <div class="modal-content">
-            <h2>Create New Set</h2>
-            <input 
-            v-model="newSetName" 
-            placeholder="Enter set name"
-            class="set-name-input"
-            @keyup.enter="createNewSet"
-            >
-            <div class="modal-actions">
-            <button class="secondary-btn" @click="showSetCreator = false">
-                Cancel
-            </button>
-            <button class="primary-btn" @click="createNewSet">
-                Create Set
-            </button>
+            <div class="modal-content">
+                <h2>Create New Set</h2>
+                <input 
+                v-model="newSetName" 
+                placeholder="Enter set name"
+                class="set-name-input"
+                @keyup.enter="createNewSet"
+                >
+                <div class="modal-actions">
+                    <button class="secondary-btn" @click="showSetCreator = false">
+                        Cancel
+                    </button>
+                    <button class="primary-btn" @click="createNewSet">
+                        Create Set
+                    </button>
+                </div>
             </div>
-        </div>
         </div>
 
         <!-- Floating Action Button -->
